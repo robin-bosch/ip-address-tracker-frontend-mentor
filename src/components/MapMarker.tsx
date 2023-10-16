@@ -1,8 +1,7 @@
-import { Loader } from '@googlemaps/js-api-loader';
-import { useEffect, useRef } from 'react';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import styles from '@/styles/modules/Marker.module.scss'
 
+// Marker props only needed for passthrough to the google react maps library
 interface MapMarkerProps {
     lat: number,
     lng: number

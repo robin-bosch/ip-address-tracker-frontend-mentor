@@ -1,6 +1,7 @@
 .main {
-	min-height: 100vh;
 	width:100%;
+	min-height: 100vh;
+	
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -9,10 +10,9 @@
 	font-family: "Rubik";
 	color: var(--very-dark-gray);
 
-
 	.ipSection {
 		width:100%;
-		height:40vh;
+		height:max(40vh, 20rem);
 		padding:1rem;
 	
 		position: relative;
@@ -27,25 +27,31 @@
 		
 		z-index: 1;
 
-
 		.heading {
+			margin-top:1%;
+
+			font-size:1.75rem;
 			font-weight: 500;
 			color:white;
-			font-size:2rem;
-			margin-top:1%;
 		}
 
 		.form {
 			display:flex;
 			width:clamp(10rem, 90vw, 35rem);
+			position: relative;
 		
 			.formInput {
+				width:100%;
 				padding:1rem 1.25rem;
-				font-size:1.1rem;
+				border:none;
 
 				border-radius:15px 0px 0px 15px;
-				width:100%;
-				border:none;
+
+				outline: none;
+
+				position: relative;
+
+				font-size:1.1rem;
 			}
 			
 			.formInput:focus {
@@ -53,14 +59,16 @@
 			}
 
 			.formBtn {
+				height:100%;
+				padding:1.1rem;
+				border:none;
 				border-radius:0px 20px 20px 0px;
+
 				display: flex;
 				justify-content: center;
 				align-items: center;
-				height:100%;
+				
 				color:white;
-				border:none;
-				padding:1.1rem;
 				
 				background: black;
 				transition: 0.3s;
@@ -78,69 +86,116 @@
 			}
 		}
 
+		.form::after {
+			content: "Please enter a valid IP address";
+
+			width:calc(100% - 4.7rem);
+			border-radius:0px 0px 5px 5px;
+			padding:0.25rem;
+			left:1rem;
+			top:100%;
+			opacity: 0;
+
+			position: absolute;
+			display: flex;
+			z-index:1;
+			
+			font-size:0.8rem;
+
+			color:white;
+
+			background: rgb(255, 75, 75);
+			transition: opacity 0.3s ease-in-out;
+			
+		}
+
+		.form.formError::after {
+			opacity: 1;
+			transition: opacity 0.3s ease-in-out;
+		}
+
+		.form.formError {
+			.formInput {
+				outline:2px solid rgb(255, 75, 75);
+			}
+		} 
+
 
 
 		.locationContainer {
-			position:absolute;
-			bottom:0%;
-			background:white;
-			border-radius: 10px;
+			width:clamp(10rem, 90vw, 30rem);
 			padding:1rem;
-			transform: translateY(50%);
+			bottom:0%;
+			border-radius: 10px;
+
+			position:absolute;
+			
+			background:white;
+			
 			display: grid;
 			grid-template-columns: 1fr;
-			gap:0.25rem;
-			width:clamp(10rem, 90vw, 30rem);
+
+			transform: translateY(50%);
+			
 			box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.1);
 		
 			.locationRow {
-				display: flex;
-				gap:0.25rem;
 				padding:0.5rem 1rem;
+
+				position: relative;
+				display: flex;
 				flex-direction: column;
 				align-items: center;
-				position: relative;
+				gap:0.25rem;
 
 				.locationDescription {
-					color: var(--dark-gray);
 					font-weight: 500;
 					font-size:clamp(0.7rem, 1.2vw, 0.8rem);
 					letter-spacing: 0.1rem;
+
+					color: var(--dark-gray);
 				}
 				
 				.locationDataContent {
+					font-size:clamp(1.2rem, 2vw, 1.5rem);
 					font-weight: 500;
 					text-align: center;
-					font-size:clamp(1.2rem, 2vw, 1.5rem);
 				}
 			}
 		}		
 	}
 
 	.mapSection {
-		height: 60vh; 
+		height: max(60vh, 20rem);
 		width: 100%;
-
 	}
 
 	@media (min-width: 1024px) {
+		
+
 		.ipSection {
+			height:max(30vh, 15rem);
 			background:url("/images/pattern-bg-desktop.png");
 			background-repeat: no-repeat;
 			background-size: cover;
-			height:30vh;
 
+			justify-content: center;
+
+			.heading {
+				margin-top:-5vw;
+			}
+			
 
 			.locationContainer {
-				grid-template-columns: repeat(4, 1fr);
-				padding:2rem 1rem;
 				width:clamp(10rem, 90vw, 80rem);
+				padding:2rem 1rem;
 
+				grid-template-columns: repeat(4, 1fr);
+				
 				.locationRow {
-					align-items: flex-start;
 					padding:0rem 2rem;
-
-
+					align-items: flex-start;
+					
 					.locationDataContent {
 						text-align: left;
 					}
@@ -151,58 +206,36 @@
 				
 					height:80%;
 					width:1px;
-					background:var(--dark-gray);
-					position:absolute;
-					left:0;
 					margin:0;
 					top:10%;
+					left:0;
+					
+					position:absolute;
+					
+					background:var(--dark-gray);
 				}
 			}
-		
-			
 		}
 	
 		.mapSection {
-			height: 70vh; 
+			height: max(70vh, 20rem); 
 		}
 	}
+
 	@media (min-width: 1280px) {
 		.ipSection {
 			.locationContainer {
 				width:clamp(10rem, 80vw, 80rem);
+
 				.locationRow {
 					align-items: flex-start;
 					padding:0rem 2rem;
-
 
 					.locationDataContent {
 						text-align: left;
 					}
 				}
-
 			}
-		
-			
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
