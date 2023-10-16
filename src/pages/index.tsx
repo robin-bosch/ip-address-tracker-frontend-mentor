@@ -21,9 +21,11 @@ export default function Home({ response }: HomeProps) {
 		lat: response.lat,
 		lng: response.lon,
     });
-
+	
+	// Input error state
 	const [showError, setShowError] = useState<boolean>(false);
 
+	// Update map center when the location data is updated
     useEffect(() => {
       setMapCenter({ lat: locationData.lat, lng: locationData.lon });
     }, [locationData]);
@@ -58,7 +60,7 @@ export default function Home({ response }: HomeProps) {
 
 		if (ipv6Pattern.test(enteredIP) || ipv4Pattern.test(enteredIP)) {
 			try {
-				const responseReq = await fetch(`http://ip-api.com/json/${enteredIP}?fields=status,message,country,city,lat,lon,timezone,offset,isp,query`);
+				const responseReq = await fetch(`/api/geolocation?ip=${enteredIP}`);
 				const newResponse = await responseReq.json();
 				setLocationData(newResponse);
 				setShowError(false);
@@ -90,8 +92,9 @@ export default function Home({ response }: HomeProps) {
 							onChange={(e) => setEnteredIP(e.target.value)}
 							className={styles.formInput}
 							placeholder="Search for any IP address or domain"
+							aria-label="IP address input"
 						/>
-						<button type="submit" className={styles.formBtn}>
+						<button type="submit" aria-label="submit button" className={styles.formBtn}>
 							<MdKeyboardArrowRight className={styles.formBtnIcon}/>
 						</button>
 					</form>
@@ -125,7 +128,8 @@ export default function Home({ response }: HomeProps) {
 
 export async function getServerSideProps({ req }: any) {
 	// Check if there is a fixed IP for testing otherwise extract IP from request
-	// Running locally without fixed IP  in and error may result
+	// Running locally without fixed IP can result in the local IP being passed to the api which will return nothing
+	// Set a NEXT_PUBLIC_FIXED_IP variable in the .env.local to set the IP
 	let ip = "";
 
 	if(process.env.NEXT_PUBLIC_FIXED_IP) {

@@ -1,40 +1,135 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# IP Address Tracker app - Frontend Mentor Challenge
 
-## Getting Started
+Developer: Robin Bosch  
+Designed by Frontend Mentor
 
-First, run the development server:
+[View live Site](https://ip-address-tracker-frontend-mentor.vercel.app/)  
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+![Mockup image](docs/mockup-preview.png)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Table of contents
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- [Overview](#overview)
+    - [The challenge](#the-challenge)
+    - [Designs](#designs)
+- [My process](#my-process)
+    - [Challenges](#challenges)
+    - [What I learned](#what-i-learned)
+- [Technologies used](#technologies-used)
+    - [Languages](#languages)
+    - [Framework](#framework)
+    - [Libraries](#libraries)
+- [Validation and Testing](#validation-and-testing)
+- [Author](#author)
+- [Credits](#author)
+- [Acknowledgments](#acknowledgments)
+- [License](#license)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Overview
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### The challenge
 
-## Learn More
+Users should be able to:
 
-To learn more about Next.js, take a look at the following resources:
+- View the optimal layout for each page depending on their device's screen size
+- See hover states for all interactive elements on the page
+- See their own IP address on the map on the initial page load
+- Search for any IP addresses or domains and see the key information and location
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Designs
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+The following designs were given to build the project:  
 
-## Deploy on Vercel
+<details>
+<summary>The Desktop design with a shown width of 1440px</summary>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+![](docs/desktop-design.jpg)
+</details>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<summary>Hover states</summary>
+
+![](docs/active-states.jpg)
+</details>
+
+<details>
+<summary>The Mobile design with a shown width of 375px</summary>
+
+![](docs/mobile-design-theme.jpg)
+</details>
+
+## My process
+
+### Challenges
+
+- Getting google maps to run on react. The most popular library has problems with the marker not staying in its position. 
+- Getting the ip address on first load, as the new app router of NextJS does not expose the request object anymore, I had to switch back to the pages router.
+- Access the API when deployed as a HTTP request is not working, when the webpage is requested via HTTPS
+
+### What I learned
+
+- The differences between the pages and app router in NextJS.
+- The Google API system and its billing.
+- Various server locations where a preview of my site was generated (little fun fact).
+
+## Technologies used
+
+### Languages
+
+- HTML
+- CSS
+- TypeScript
+
+### Frameworks
+
+- NextJS (page router)
+- SASS
+
+### Libraries
+
+- google-react-map-marker
+- react-icons
+
+## Validation and Testing
+
+### HTML Validation
+
+HTML validation was done with the [W3 HTML validator](https://validator.w3.org/nu/) and came back with no warnings.
+
+### CSS Validation
+
+CSS validation was done with the [W3 CSS validator](https://jigsaw.w3.org/css-validator/) and came back with warnings regarding the variables which are currently not checked.
+
+### Accessibility Testing
+
+Accessibility was checked with the browser extension of the [WAVE validator](https://wave.webaim.org/) and came back with errors in the contrast given by the design.
+
+### Device Testing
+
+The website was tested on the following devices:
+
+- Windows 11 PC (Screen resolution: 2560x1440)
+- Xiaomi MI 9 with Android 11 (Screen resolution: 1080x2280)
+- Xiaomi Pad 6 with Android 12 (Screen resolution: 1800x2880)
+
+Other screen resolutions were tested in the browser with dev tools from 2560x1440 down to 320x568.
+
+### Useful resources
+
+Two helpful reference guides I use: 
+- [Grid Guide](https://css-tricks.com/snippets/css/complete-guide-grid/)
+- [Flexbox Guide](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
+
+Helpful for regex patterns:
+- [ChatGPT](https://chat.openai.com/)
+
+## Credits
+
+- [Frontend mentor](https://www.frontendmentor.io) - For providing me with [this challenge and the designs.](https://www.frontendmentor.io/challenges/ip-address-tracker-I8-0yYAH0) 
+- [Reset CSS](https://andy-bell.co.uk/a-modern-css-reset/) from Andy Bell
+
+## License
+
+This project is published under the MIT license.  
+The challenge itself is excluded from this license.  
+[License](/LICENSE.txt)
