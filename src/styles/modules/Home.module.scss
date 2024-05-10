@@ -87,7 +87,7 @@
 		}
 
 		.form::after {
-			content: "Please enter a valid IP address";
+			content: "Please enter a valid public IP address";
 
 			width:calc(100% - 4.7rem);
 			border-radius:0px 0px 5px 5px;
@@ -168,6 +168,7 @@
 	.mapSection {
 		height: max(60vh, 20rem);
 		width: 100%;
+		z-index:0;
 	}
 
 	@media (min-width: 1024px) {
