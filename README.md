@@ -63,14 +63,25 @@ The following designs were given to build the project:
 ### Challenges
 
 - Getting google maps to run on react. The most popular library has problems with the marker not staying in its position. 
-- Getting the ip address on first load, as the new app router of NextJS does not expose the request object anymore, I had to switch back to the pages router.
-- Access the API when deployed as a HTTP request is not working, when the webpage is requested via HTTPS
+- Getting the ip address on first load, as the new app router of Next.JS does not expose the request object anymore, I had to switch back to the pages router.
+- Access the API when deployed as a HTTP request is not working, when the webpage is requested via HTTPS.
+
+#### Challenges of new Version
+
+- Replacing google maps with leaflet after google introduced the new street colours and the api key not working correctly anymore.
+- Creating a custom marker with react-leaflet while using the icons from the react-icons library.
 
 ### What I learned
 
-- The differences between the pages and app router in NextJS.
+- The differences between the pages and app router in Next.JS.
 - The Google API system and its billing.
 - Various server locations where a preview of my site was generated (little fun fact).
+
+#### What I learned with the new version
+
+- A better usage for useMemo, never really used useMemo before.
+- The differences between google maps and leaflet when integrating a map. They are quite different in their usage.
+
 
 ## Technologies used
 
@@ -82,12 +93,12 @@ The following designs were given to build the project:
 
 ### Frameworks
 
-- NextJS (page router)
-- SASS
+- Next.JS (page router)
+- SASS (SCSS)
 
 ### Libraries
 
-- google-react-map-marker
+- react-leaflet
 - react-icons
 
 ## Validation and Testing
