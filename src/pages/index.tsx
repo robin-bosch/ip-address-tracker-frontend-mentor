@@ -147,7 +147,7 @@ export async function getServerSideProps({ req }: any) {
 		ip = forwarded ? forwarded.split(/, /)[0] : req.connection.remoteAddress;
 	}
 
-	// Get gelocation data
+	// Get geolocation data
 	let response: GeolocationResponse;
 
 	try {
