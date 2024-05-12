@@ -1,22 +1,19 @@
 import Head from 'next/head'
+import dynamic from 'next/dynamic';
 
 import styles from '@/styles/modules/Home.module.scss'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 
 import { MdKeyboardArrowRight } from 'react-icons/md';
 import { GeolocationResponse, MapCenter } from '@/types';
-import dynamic from 'next/dynamic';
 
 interface HomeProps {
 	response: GeolocationResponse
 }
 
-
-
 export default function Home({ response }: HomeProps) {
 	
-
     const [enteredIP, setEnteredIP] = useState<string>('');
     const [locationData, setLocationData] = useState<GeolocationResponse>(response);
 
@@ -151,13 +148,27 @@ export async function getServerSideProps({ req }: any) {
 	}
 
 	// Get gelocation data
-	let response = "";
+	let response: GeolocationResponse;
 
 	try {
 		const responseReq = await fetch(`http://ip-api.com/json/${ip}?fields=status,message,country,city,lat,lon,timezone,offset,isp,query`);
 		response = await responseReq.json();
+
+		if(response.status !== "success") {
+			return {
+				redirect: {
+				  permanent: false,
+				  destination: "/500"
+				}
+			}
+		}
 	} catch (error) {
-		response = 'An error occurred';
+		return {
+			redirect: {
+			  permanent: false,
+			  destination: "/500"
+			}
+		}
 	}
 
 	return {
