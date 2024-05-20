@@ -1,11 +1,8 @@
-export type MapCenter = {
-	lat: number,
-	lng: number
-}
+export type MapCenter = [number, number]
 
 export type GeolocationResponse = {
     status: string,
-    messgae: string,
+    message: string,
     country: string,
     city: string,
     lat: number,
@@ -14,5 +11,4 @@ export type GeolocationResponse = {
     offset: number,
     isp: string,
     query: string
-
 }

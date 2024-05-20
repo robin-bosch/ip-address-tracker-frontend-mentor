@@ -1,16 +1,24 @@
-import { FaMapMarkerAlt } from 'react-icons/fa';
+import { FaMapMarkerAlt } from "react-icons/fa";
 import styles from '@/styles/modules/Marker.module.scss'
+import { Marker } from '@adamscybot/react-leaflet-component-marker';
+import { MapCenter } from "@/types";
 
-// Marker props only needed for passthrough to the google react maps library
-interface MapMarkerProps {
-    lat: number,
-    lng: number
+interface MapProps {
+    mapCenter: MapCenter
 }
 
-export const MapMarker = ({lat, lng}: MapMarkerProps) => {
-    return(
-        <div className={styles.markerContainer}>
-            <FaMapMarkerAlt className={styles.marker}/>
-        </div>
-    );
+function MapMarker({mapCenter}: MapProps) {
+    return (
+        <Marker 
+            position={mapCenter} 
+            icon={
+                <div className={styles.markerContainer}>
+                    <FaMapMarkerAlt className={styles.marker}/>
+                </div>
+            } 
+            iconComponentLayout={"fit-parent"}
+        />
+    )
 }
+
+export default MapMarker;

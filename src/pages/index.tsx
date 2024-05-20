@@ -1,9 +1,9 @@
 import Head from 'next/head'
+import dynamic from 'next/dynamic';
 
 import styles from '@/styles/modules/Home.module.scss'
-import Map from '@/components/Map'
 
-import { useEffect, useState } from 'react'
+import { useMemo, useState } from 'react'
 
 import { MdKeyboardArrowRight } from 'react-icons/md';
 import { GeolocationResponse, MapCenter } from '@/types';
@@ -13,22 +13,21 @@ interface HomeProps {
 }
 
 export default function Home({ response }: HomeProps) {
-
+	
     const [enteredIP, setEnteredIP] = useState<string>('');
     const [locationData, setLocationData] = useState<GeolocationResponse>(response);
 
-    const [mapCenter, setMapCenter] = useState<MapCenter>({
-		lat: response.lat,
-		lng: response.lon,
-    });
+    const [mapCenter, setMapCenter] = useState<MapCenter>([response.lat, response.lon]);
+
+	// Dynamic load of the map component, to render the map client side
+	// Cache in useMemo to prevent flickering caused by re-rendering
+	const Map = useMemo(() => dynamic(
+		()  => import('@/components/Map'),
+		{ ssr: false }
+	), []);
 	
 	// Input error state
 	const [showError, setShowError] = useState<boolean>(false);
-
-	// Update map center when the location data is updated
-    useEffect(() => {
-      setMapCenter({ lat: locationData.lat, lng: locationData.lon });
-    }, [locationData]);
   
 	/**
 	 * Format the incoming UTC offset in seconds to the displayable format
@@ -61,11 +60,18 @@ export default function Home({ response }: HomeProps) {
 		if (ipv6Pattern.test(enteredIP) || ipv4Pattern.test(enteredIP)) {
 			try {
 				const responseReq = await fetch(`/api/geolocation?ip=${enteredIP}`);
-				const newResponse = await responseReq.json();
-				setLocationData(newResponse);
-				setShowError(false);
+				const locationResponse = await responseReq.json();
+
+				if(locationResponse.status === "success") {
+					setLocationData(locationResponse);
+					setMapCenter([locationResponse.lat, locationResponse.lon]);
+					setShowError(false);
+				}
+				else {
+					setShowError(true);
+				}
 			} catch (error) {
-				
+				setShowError(true);
 			}
 		}
 		else {
@@ -118,6 +124,7 @@ export default function Home({ response }: HomeProps) {
 					</article>
 				</section>
 				<section className={styles.mapSection}>
+					{/* Reference to dynamic in port in index page component directly */}
 					<Map mapCenter={mapCenter}/>
 				</section>
 			</main>
@@ -140,14 +147,28 @@ export async function getServerSideProps({ req }: any) {
 		ip = forwarded ? forwarded.split(/, /)[0] : req.connection.remoteAddress;
 	}
 
-	// Get gelocation data
-	let response = "";
+	// Get geolocation data
+	let response: GeolocationResponse;
 
 	try {
 		const responseReq = await fetch(`http://ip-api.com/json/${ip}?fields=status,message,country,city,lat,lon,timezone,offset,isp,query`);
 		response = await responseReq.json();
+
+		if(response.status !== "success") {
+			return {
+				redirect: {
+				  permanent: false,
+				  destination: "/500"
+				}
+			}
+		}
 	} catch (error) {
-		response = 'An error occurred';
+		return {
+			redirect: {
+			  permanent: false,
+			  destination: "/500"
+			}
+		}
 	}
 
 	return {

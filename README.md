@@ -20,7 +20,7 @@ Designed by Frontend Mentor
     - [Framework](#framework)
     - [Libraries](#libraries)
 - [Validation and Testing](#validation-and-testing)
-- [Author](#author)
+- [Deployment](#deployment)
 - [Credits](#author)
 - [Acknowledgments](#acknowledgments)
 - [License](#license)
@@ -47,6 +47,7 @@ The following designs were given to build the project:
 ![](docs/desktop-design.jpg)
 </details>
 
+<details>
 <summary>Hover states</summary>
 
 ![](docs/active-states.jpg)
@@ -55,7 +56,7 @@ The following designs were given to build the project:
 <details>
 <summary>The Mobile design with a shown width of 375px</summary>
 
-![](docs/mobile-design-theme.jpg)
+![](docs/mobile-design.jpg)
 </details>
 
 ## My process
@@ -63,14 +64,24 @@ The following designs were given to build the project:
 ### Challenges
 
 - Getting google maps to run on react. The most popular library has problems with the marker not staying in its position. 
-- Getting the ip address on first load, as the new app router of NextJS does not expose the request object anymore, I had to switch back to the pages router.
-- Access the API when deployed as a HTTP request is not working, when the webpage is requested via HTTPS
+- Getting the ip address on first load, as the new app router of Next.JS does not expose the request object anymore, I had to switch back to the pages router.
+- Access the API when deployed as a HTTP request is not working, when the webpage is requested via HTTPS.
+
+#### Challenges of new version
+
+- Replacing google maps with leaflet after google introduced the new street colors and the api key not working correctly anymore.
+- Creating a custom marker with react-leaflet while using the icons from the react-icons library.
 
 ### What I learned
 
-- The differences between the pages and app router in NextJS.
+- The differences between the pages and app router in Next.JS.
 - The Google API system and its billing.
 - Various server locations where a preview of my site was generated (little fun fact).
+
+#### What I learned with the new version
+
+- A better usage for useMemo, never really used useMemo before.
+- The differences between google maps and leaflet when integrating a map. They are quite different in their usage.
 
 ## Technologies used
 
@@ -82,13 +93,14 @@ The following designs were given to build the project:
 
 ### Frameworks
 
-- NextJS (page router)
-- SASS
+- Next.JS (page router)
+- SASS (SCSS)
 
 ### Libraries
 
-- google-react-map-marker
+- react-leaflet
 - react-icons
+- @adamscybot/react-leaflet-component-marker
 
 ## Validation and Testing
 
@@ -122,6 +134,29 @@ Two helpful reference guides I use:
 
 Helpful for regex patterns:
 - [ChatGPT](https://chat.openai.com/)
+
+## Deployment
+
+### Locally
+
+1. Clone the repository with the code button on GitHub.
+2. After cloning change directory into the repository and run the following command:
+
+```
+npm install
+```
+
+3. IMPORTANT: Create a .env.local file in the repository and create a key called NEXT_PUBLIC_FIXED_IP and enter any valid public IP address in quotation, like your own address or any server IP address. Skipping this will result in a server crash and will redirect to the error page. This step is only needed if the app is run locally. Here is an example:
+
+```
+NEXT_PUBLIC_FIXED_IP="8.8.8.8"
+```
+
+4. Run the following command to start the local server:
+
+```
+npm run dev
+```
 
 ## Credits
 
