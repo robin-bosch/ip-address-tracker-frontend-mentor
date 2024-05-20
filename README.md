@@ -83,7 +83,6 @@ The following designs were given to build the project:
 - A better usage for useMemo, never really used useMemo before.
 - The differences between google maps and leaflet when integrating a map. They are quite different in their usage.
 
-
 ## Technologies used
 
 ### Languages
@@ -101,6 +100,7 @@ The following designs were given to build the project:
 
 - react-leaflet
 - react-icons
+- @adamscybot/react-leaflet-component-marker
 
 ## Validation and Testing
 

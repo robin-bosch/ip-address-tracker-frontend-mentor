@@ -24,7 +24,7 @@ export default function Home({ response }: HomeProps) {
 	const Map = useMemo(() => dynamic(
 		()  => import('@/components/Map'),
 		{ ssr: false }
-	), [mapCenter]);
+	), []);
 	
 	// Input error state
 	const [showError, setShowError] = useState<boolean>(false);
